@@ -140,7 +140,8 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
 STATICFILES_DIRS = [
-    "static",
+    BASE_DIR / "static",
+    # '/var/www/static/',
 ]
 
 # Default primary key field type

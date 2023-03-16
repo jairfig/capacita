@@ -11,3 +11,6 @@ def painel(request):
     }
     return render(request, 'painel/painel.html', context)
 
+
+def dashboard(request):
+    return render(request, 'painel/dashboard.html')
