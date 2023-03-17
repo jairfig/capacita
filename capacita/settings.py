@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'bootstrap5',
 
     'painel',
+    'editais',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'pt-bt'
+LANGUAGE_CODE = 'pt-BR'
 
 TIME_ZONE = 'America/Rio_Branco'
 
