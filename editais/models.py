@@ -13,8 +13,8 @@ class Edital(models.Model):
     url_edital = models.CharField('URL do edital no site da ufac', null=True, blank=True, max_length=800)
     programa = models.ForeignKey("Programa", on_delete=models.CASCADE, related_name='editais')
 
-    def __str__(self):
-        return self.programa.sigla + ' nº ' + self.numero.__str__() + '/' + self.ano
+    def get_num_ano(self):
+        return ' nº ' + self.numero.__str__() + '/' + self.ano
 
     class Meta:
         ordering = ["-ano"]
@@ -45,15 +45,21 @@ class Programa(models.Model):
 
 
 class LinhaPesquisa(models.Model):
-    programa = models.ForeignKey(Programa, verbose_name='programa', related_name='linhas_pesquisa',
-                                 on_delete=models.CASCADE)
     descricao = models.CharField('Descrição', max_length=150)
-
-    class Meta:
-        verbose_name_plural = 'Linhas de pesquisa'
+    programa = models.ForeignKey(Programa, verbose_name='Programa', related_name='linhas_pesquisa',
+                                 on_delete=models.CASCADE)
 
     def __str__(self):
         return self.descricao
+
+    def get_programa(self):
+        return self.programa.nome_diploma
+
+    def get_nivel_programa(self):
+        return self.programa.get_nivel_display()
+
+    class Meta:
+        verbose_name_plural = 'Linhas de pesquisa'
 
 
 class Arquivo(models.Model):
@@ -73,9 +79,15 @@ class ArquivoEtapa(models.Model):
 
 class Orientador(models.Model):
     nome = models.CharField('Nome do orientador', max_length=100)
-    linhadepesquisa = models.ForeignKey(LinhaPesquisa, verbose_name='linha_depesquisa', related_name='orientador_set',
+    linhadepesquisa = models.ForeignKey(LinhaPesquisa, verbose_name='Linha de Pesquisa', related_name='orientador_set',
                                         on_delete=models.CASCADE)
     ativo = models.BooleanField('Ativo', default=True)
+
+    def get_linha_pesquisa(self):
+        return LinhaPesquisa.objects.filter(id=self.id)
+
+    def get_programa(self):
+        return self.linhadepesquisa.programa
 
     class Meta:
         verbose_name_plural = 'Orientadores'
