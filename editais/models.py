@@ -2,16 +2,18 @@ from django.db import models
 
 import os
 from datetime import date
-from .choices import anos, niveis_programa
+from capacita import choices
+from programas.models import Programa
 
 
 # Create your models here.
 class Edital(models.Model):
     numero = models.IntegerField('Número do Edital', null=False, blank=False)
-    ano = models.CharField('Ano do Edital', choices=anos, default=date.today().year, null=False, blank=False,
+    ano = models.CharField('Ano do Edital', choices=choices.ANO_CHOICE, default=date.today().year, null=False, blank=False,
                            max_length=4)
     url_edital = models.CharField('URL do edital no site da ufac', null=True, blank=True, max_length=800)
-    programa = models.ForeignKey("Programa", on_delete=models.CASCADE, related_name='editais')
+    programa = models.ForeignKey('programas.Programa', on_delete=models.CASCADE, related_name='editais')
+    # nro_vagas = models.IntegerField("Número de Vagas", null=False, blank=False)
 
     def get_num_ano(self):
         return ' nº ' + self.numero.__str__() + '/' + self.ano
@@ -33,35 +35,6 @@ class Etapa(models.Model):
                + self.dt_fim.strftime('%d/%m/%Y').__str__()
 
 
-class Programa(models.Model):
-    cod_curso_sie = models.IntegerField(null=True, blank=True)
-    sigla = models.CharField('Sigla do Programa', max_length=20, null=False, blank=True)
-    nome_diploma = models.CharField('Nome do Programa', max_length=150, null=False, blank=True)
-    nivel = models.CharField('Nível do programa', choices=niveis_programa, max_length=1, default='M')
-    pagina_web = models.CharField('Endereço para a página do mestrado', null=True, blank=True, max_length=800)
-
-    def __str__(self):
-        return self.nome_diploma + ' : ' + self.nivel
-
-
-class LinhaPesquisa(models.Model):
-    descricao = models.CharField('Descrição', max_length=150)
-    programa = models.ForeignKey(Programa, verbose_name='Programa', related_name='linhas_pesquisa',
-                                 on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.descricao
-
-    def get_programa(self):
-        return self.programa.nome_diploma
-
-    def get_nivel_programa(self):
-        return self.programa.get_nivel_display()
-
-    class Meta:
-        verbose_name_plural = 'Linhas de pesquisa'
-
-
 class Arquivo(models.Model):
 
     def dir_arquivos(self, filename):
@@ -75,22 +48,3 @@ class Arquivo(models.Model):
 class ArquivoEtapa(models.Model):
     etapa = models.ForeignKey(Etapa, verbose_name='etapa', related_name='etapa_edital', on_delete=models.CASCADE)
     arquivo = models.ManyToManyField(Arquivo)
-
-
-class Orientador(models.Model):
-    nome = models.CharField('Nome do orientador', max_length=100)
-    linhadepesquisa = models.ForeignKey(LinhaPesquisa, verbose_name='Linha de Pesquisa', related_name='orientador_set',
-                                        on_delete=models.CASCADE)
-    ativo = models.BooleanField('Ativo', default=True)
-
-    def get_linha_pesquisa(self):
-        return LinhaPesquisa.objects.filter(id=self.id)
-
-    def get_programa(self):
-        return self.linhadepesquisa.programa
-
-    class Meta:
-        verbose_name_plural = 'Orientadores'
-
-    def __str__(self):
-        return self.nome
