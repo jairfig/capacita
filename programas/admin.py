@@ -5,7 +5,7 @@ from .models import *
 # Register your models here.
 class OrientadorAdmin(admin.ModelAdmin):
     search_fields = ['nome', 'linha__descricao']
-    list_display = ('nome', 'area', 'linha', 'get_programa')
+    list_display = ('nome', 'area_atuacao', 'linha', 'get_programa')
 
 
 class LinhaPesquisaAdmin(admin.ModelAdmin):
@@ -14,6 +14,6 @@ class LinhaPesquisaAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Programa)
-admin.site.register(AreaTrabalho)
+admin.site.register(Area)
 admin.site.register(LinhaPesquisa, LinhaPesquisaAdmin)
 admin.site.register(Orientador, OrientadorAdmin)

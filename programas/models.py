@@ -33,35 +33,37 @@ class LinhaPesquisa(models.Model):
         verbose_name_plural = 'Linhas de pesquisa'
 
 
-class AreaTrabalho(models.Model):
-    linha_pesquisa = models.ForeignKey(LinhaPesquisa, verbose_name='Linha', related_name='areas_trabalho',
+class Area(models.Model):
+    linha_pesquisa = models.ForeignKey(LinhaPesquisa, verbose_name='Linha', related_name='areas',
                                  on_delete=models.CASCADE)
-    area = models.CharField('Título da Área', max_length=150)
+    descricao = models.CharField('Título da Área', max_length=150, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.area} ({self.linha_pesquisa.sigla})'
+        return f'{self.descricao} ({self.linha_pesquisa.sigla})'
 
     class Meta:
-        ordering = ["area"]
-        verbose_name_plural = u'Areas de Trabalho'
+        ordering = ["descricao"]
+        verbose_name_plural = u'Áreas de Pesquisa'
 
 
 class Orientador(models.Model):
     nome = models.CharField('Nome do orientador', max_length=100)
-    area = models.ForeignKey(AreaTrabalho, verbose_name='Área de Pesquisa', related_name='orientadores',
-                                        on_delete=models.CASCADE, null=True, blank=True)
+    area_atuacao = models.ForeignKey(Area, verbose_name='Área de Pesquisa', related_name='orientadores',
+                             on_delete=models.CASCADE, null=True, blank=True)
     linha = models.ForeignKey(LinhaPesquisa, verbose_name='Linha de Pesquisa', related_name='orientadores',
                                         on_delete=models.CASCADE, null=True, blank=True)
     ativo = models.BooleanField('Ativo', default=True)
 
     def get_linha_pesquisa(self):
-        return self.linha or self.area.linha_pesquisa
+        return self.linha or self.area_atuacao.linha_pesquisa
 
     def get_programa(self):
-        return self.area.linha_pesquisa.programa or self.linha.programa
+        return self.area_atuacao.linha_pesquisa.programa or self.linha.programa
 
     class Meta:
         verbose_name_plural = 'Orientadores'
 
     def __str__(self):
         return self.nome
+
+

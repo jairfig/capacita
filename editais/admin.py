@@ -9,4 +9,5 @@ class EditalAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Edital, EditalAdmin)
-admin.site.register(Etapa)
+admin.site.register(Fase)
+admin.site.register(Vaga)

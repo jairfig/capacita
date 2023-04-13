@@ -1,4 +1,9 @@
-
+CONCORRENCIA = (
+    ('ED', 'Edital'),
+    ('LP', 'Linha de Pesquisa'),
+    ('AP', 'Área de Pesquisa'),
+    ('OR', 'Orientador'),
+)
 
 NIVEL_PROGRAMA_CHOICE = (
     ('M', 'Mestrado'),
