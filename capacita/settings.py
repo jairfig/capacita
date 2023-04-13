@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
     'painel',
     'editais',
-    'programas',
+    'programa',
 ]
 
 MIDDLEWARE = [

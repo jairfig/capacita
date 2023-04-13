@@ -3,7 +3,7 @@ from django.db import models
 import os
 from datetime import date
 from capacita import choices
-from programas.models import Programa
+from programa.models import Programa, OrganizacaoPrograma
 
 
 # Create your models here.
@@ -28,9 +28,8 @@ class Vaga(models.Model):
 
 
 class DetalhamentoVaga(models.Model):
-    tipo_concorrencia =  models.ForeignKey('Vaga', on_delete=models.CASCADE, related_name='detalhamento_vagas')
-    numero_vagas = models.IntegerField('Total de Vagas do Edital', null=False, blank=False)
-    codigo = models.IntegerField('Total de Vagas do Edital', null=False, blank=False)
+    item_vaga = models.ForeignKey('programa.OrganizacaoPrograma', on_delete=models.CASCADE, related_name='detalhamento_vagas')
+    numero_vagas = models.IntegerField('Número de Vagas para este Item', null=False, blank=False)
 
 
 class Edital(models.Model):
@@ -38,7 +37,7 @@ class Edital(models.Model):
     ano = models.CharField('Ano do Edital', choices=choices.ANO_CHOICE, default=date.today().year, null=False, blank=False,
                            max_length=4)
     url_edital = models.CharField('URL do edital no site da ufac', null=True, blank=True, max_length=800)
-    programa = models.ForeignKey('programas.Programa', on_delete=models.CASCADE, related_name='editais')
+    programa = models.ForeignKey('programa.Programa', on_delete=models.CASCADE, related_name='editais')
     anexos = models.ManyToManyField(Arquivo, blank=True)
 
     def get_num_ano(self):

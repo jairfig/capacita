@@ -14,6 +14,7 @@ class LinhaPesquisaAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Programa)
-admin.site.register(Area)
-admin.site.register(LinhaPesquisa, LinhaPesquisaAdmin)
-admin.site.register(Orientador, OrientadorAdmin)
+admin.site.register(OrganizacaoPrograma)
+# admin.site.register(Area)
+# admin.site.register(LinhaPesquisa, LinhaPesquisaAdmin)
+# admin.site.register(Orientador, OrientadorAdmin)
