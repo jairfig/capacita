@@ -3,8 +3,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from editais import views
+from inscricoes import views
 
 urlpatterns = [
-    path('', views.novo_edital, name='nova_inscricao'),
+    path('', views.nova_incricao, name='nova_inscricao'),
 ]# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

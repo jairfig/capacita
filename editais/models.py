@@ -28,7 +28,7 @@ class Arquivo(models.Model):
 
     def dir_arquivos(self, filename):
         extension = os.path.splitext(filename)[-1]
-        return f'arquivos_editais/{self.edital.programa.sigla}/{self.edital.ano}/{self.edital.get_num_ano()}-{self.dt_envio}{extension}'
+        return f'arquivos_editais/{self.edital.programa.sigla}/{self.edital.numero}-{self.edital.ano}/{self.dt_envio}{extension}'
 
     arquivo = models.FileField(upload_to=dir_arquivos, storage=None, max_length=120, blank=True, null=True)
 

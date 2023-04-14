@@ -2,5 +2,5 @@ from django.shortcuts import render
 
 
 # Create your views here.
-def novo_edital(request):
+def nova_incricao(request):
     return render(request, 'inscricoes/nova_inscricao.html')
