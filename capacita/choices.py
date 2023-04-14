@@ -1,8 +1,8 @@
 CONCORRENCIA = (
-    ('ED', 'Edital'),
-    ('LP', 'Linha de Pesquisa'),
-    ('AP', 'Área de Pesquisa'),
-    ('OR', 'Orientador'),
+    ('Edital', 'Edital'),
+    ('Linha de Pesquisa', 'Linha de Pesquisa'),
+    ('Área de Pesquisa', 'Área de Pesquisa'),
+    ('Orientador', 'Orientador'),
 )
 
 NIVEL_PROGRAMA_CHOICE = (

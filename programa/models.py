@@ -16,13 +16,16 @@ class Programa(models.Model):
 
 class OrganizacaoPrograma(models.Model):
     programa = models.ForeignKey(Programa, verbose_name='Programa', related_name='linhas_pesquisa', on_delete=models.CASCADE)
-    tipo = models.CharField('Tipo de Item de Concorrência', choices=choices.CONCORRENCIA, max_length=2, default=choices.CONCORRENCIA[1][0])
+    tipo = models.CharField('Tipo', choices=choices.CONCORRENCIA, max_length=20, default=choices.CONCORRENCIA[1][0])
     nome =  models.CharField('Nome ou Descrição', max_length=120)
     abrev = models.CharField('Sigla/Abreviação', max_length=12, null=True, blank=True)
     vinculo_superior = models.ForeignKey('self', verbose_name='Superior Hieraquico', related_name='sucessores', on_delete=models.CASCADE, null=True, blank=True)
 
+    def __str__(self):
+        return f'{self.programa.sigla} {self.nome} {self.tipo}'
+
     class Meta:
-        verbose_name_plural = u'Entidades'
+        verbose_name_plural = u'Detalhes do Programa'
 
 #
 # class LinhaPesquisa(models.Model):

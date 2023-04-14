@@ -13,8 +13,13 @@ class LinhaPesquisaAdmin(admin.ModelAdmin):
     list_display = ('descricao', 'get_programa', 'get_nivel_programa')
 
 
+class OrganizacaoProgramaAdmin(admin.ModelAdmin):
+    search_fields = ['nome']
+    list_display = ('nome', 'tipo', 'programa')
+
+
 admin.site.register(Programa)
-admin.site.register(OrganizacaoPrograma)
+admin.site.register(OrganizacaoPrograma, OrganizacaoProgramaAdmin)
 # admin.site.register(Area)
 # admin.site.register(LinhaPesquisa, LinhaPesquisaAdmin)
 # admin.site.register(Orientador, OrientadorAdmin)
