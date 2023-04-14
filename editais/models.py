@@ -11,10 +11,11 @@ from programa.models import Programa, OrganizacaoPrograma
 class Vaga(models.Model):
     edital = models.ForeignKey('Edital', on_delete=models.CASCADE, related_name='vagas_edital')
     item_vaga = models.ForeignKey('programa.OrganizacaoPrograma', on_delete=models.CASCADE, related_name='detalhamento_vagas')
+    nivel = models.ForeignKey('programa.Nivel', on_delete=models.CASCADE, related_name='niveis_vaga')
     numero_vagas = models.IntegerField('Número de Vagas para este Item', null=False, blank=False)
 
     def __str__(self):
-        return self.item_vaga.nome + ' - ' + self.item_vaga.tipo + ' - ' + self.numero_vagas.__str__()
+        return f'[{self.numero_vagas}] Concorrência {self.item_vaga.nome} - Edital {self.edital.get_num_ano()}/{self.edital.programa.sigla}/{self.nivel}'
 
     class Meta:
         verbose_name_plural = u'Vagas'
@@ -36,12 +37,13 @@ class Arquivo(models.Model):
 
 
 class Edital(models.Model):
+    programa = models.ForeignKey('programa.Programa', on_delete=models.CASCADE, related_name='editais')
     numero = models.IntegerField('Número do Edital', null=False, blank=False)
     ano = models.CharField('Ano do Edital', choices=choices.ANO_CHOICE, default=date.today().year, null=False, blank=False,
                            max_length=4)
     url_edital = models.CharField('URL do edital no site da ufac', null=True, blank=True, max_length=800)
-    programa = models.ForeignKey('programa.Programa', on_delete=models.CASCADE, related_name='editais')
     concorrencia = models.CharField('Tipo de Concorrência', choices=choices.CONCORRENCIA, max_length=20, default=choices.CONCORRENCIA[0][0])
+    nivel_vagas = models.ManyToManyField('programa.Nivel')
 
     def get_num_ano(self):
         return self.numero.__str__() + '/' + self.ano

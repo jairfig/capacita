@@ -15,11 +15,11 @@ class LinhaPesquisaAdmin(admin.ModelAdmin):
 
 class OrganizacaoProgramaAdmin(admin.ModelAdmin):
     search_fields = ['nome']
-    list_display = ('nome', 'tipo', 'programa')
+    list_display = ('nome', 'item', 'programa')
 
 
 admin.site.register(Programa)
 admin.site.register(OrganizacaoPrograma, OrganizacaoProgramaAdmin)
-# admin.site.register(Area)
+# admin.site.register(Nivel)
 # admin.site.register(LinhaPesquisa, LinhaPesquisaAdmin)
 # admin.site.register(Orientador, OrientadorAdmin)

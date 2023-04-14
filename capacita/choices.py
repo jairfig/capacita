@@ -6,9 +6,10 @@ CONCORRENCIA = (
 )
 
 NIVEL_PROGRAMA_CHOICE = (
+    ('E', 'Especialização'),
     ('M', 'Mestrado'),
     ('D', 'Doutorado'),
-    ('A', 'Mestrado e Doutorado'),
+    ('MD', 'Mestrado e Doutorado'),
 )
 
 SEXO_CHOICES = [('M', 'Masculino'), ('F', 'Feminino'), ('O', 'Outro')]
