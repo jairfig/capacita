@@ -24,6 +24,10 @@ urlpatterns = [
     path('painel/', views.painel, name='painel'),
     path('editais/', include('editais.urls')),
     path('inscricoes/', include('inscricoes.urls')),
+    path('cadastro/', include('cadastro.urls')),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('admin/', admin.site.urls),
+    path('cadastro/', include('django.contrib.auth.urls')),
+
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

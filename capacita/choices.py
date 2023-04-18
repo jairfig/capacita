@@ -1,26 +1,26 @@
-CONCORRENCIA = (
+CONCORRENCIA = [
     ('Edital', 'Edital'),
     ('Linha de Pesquisa', 'Linha de Pesquisa'),
     ('Área de Pesquisa', 'Área de Pesquisa'),
     ('Orientador', 'Orientador'),
-)
+]
 
-NIVEL_PROGRAMA_CHOICE = (
+NIVEL_PROGRAMA_CHOICE = [
     ('E', 'Especialização'),
     ('M', 'Mestrado'),
     ('D', 'Doutorado'),
     ('MD', 'Mestrado e Doutorado'),
-)
+]
 
 SEXO_CHOICES = [('M', 'Masculino'), ('F', 'Feminino'), ('O', 'Outro')]
 
-ANO_CHOICE = (
+ANO_CHOICE = [
     ('2023', '2023'),
     ('2022', '2022'),
     ('2021', '2021')
-)
+]
 
-UF_CHOICES = (
+UF_CHOICES = [
     ('AC', 'Acre'),
     ('AL', 'Alagoas'),
     ('AP', 'Amapá'),
@@ -47,6 +47,6 @@ UF_CHOICES = (
     ('SE', 'Sergipe'),
     ('SP', 'São Paulo'),
     ('TO', 'Tocantins')
-)
+]
 
 

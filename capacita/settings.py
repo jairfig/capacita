@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'editais',
     'programa',
     'inscricoes',
+    'cadastro'
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     # '/var/www/static/',
 ]
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/cadastro/login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

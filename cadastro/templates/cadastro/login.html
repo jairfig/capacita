@@ -1,0 +1,52 @@
+{% extends 'capacita/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{#{% bootstrap_css %}#}
+{#{% bootstrap_javascript %}#}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{#{% bootstrap_messages %}#}
+
+{% block titulo %} Acessar o sistema {% endblock titulo %}
+
+{% block conteudo %}
+
+    <div class="row d-flex justify-content-center py-4">
+        <div class="col-sm-6">
+            <div class="card card-body" style="width: 25rem;">
+                <h5 class="card-title">Acesso ao sistema</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                   placeholder="name@dominio.com">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <input class="form-control" type="password" value="password" id="example-password-input">
+                        </div>
+                    </div>
+                    {{ form }}
+                    <div class="row">
+                        <div class="form-group"><a href="#" class="btn btn-primary w-100 mb-2">Acessar</a></div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group"><a href="{% url 'recuperar_senha' %}" class="btn btn-secondary w-100 mb-2">Esqueci a senha</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group"><a href="{% url 'novo_usuario' %}" class="btn btn-secondary w-100 mb-2">Não
+                            tenho cadastro</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock conteudo %}

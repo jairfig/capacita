@@ -1,16 +1,18 @@
 from django.conf import settings
 from django.db import models
+from django.contrib.auth.models import User
 from editais.models import Edital
 from capacita import choices
 
 
 # Create your models here.
 class Candidato(models.Model):
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(User, on_delete=models.PROTECT)
     nome = models.CharField('Nome completo', max_length=255)
     email = models.EmailField()
     celular = models.CharField('Telefone Celular', max_length=20, null=True, blank=True)
-    whatsapp = models.BooleanField('Permite contactar por whatsapp', default=True)
+    whatsapp = models.BooleanField('Autorizo contato por whatsapp', default=True)
     data_nascimento = models.DateField(null=True, blank=True)
     cpf = models.CharField(max_length=11, unique=True, null=True, blank=True)
     rg = models.CharField(max_length=20, null=True, blank=True)
